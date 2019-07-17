@@ -55,34 +55,50 @@ button:hover {
 </head>
 <body>
 
-<form action="tests.php" method="POST">
+<form action="signup.php" method="POST">
   
     <h1>Sign Up</h1>
     <p>Please fill in this form to create an account.</p>
     <hr>
-	</select></br><br><br>
-   <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-	
-    <label for="email"><b>Email</b></label>
-    <input type="email" placeholder="Enter Email" name="email" required>
-	
-	<label for="phone"><b>Phone Number</b></label>
-    <input type="phone" placeholder="Enter Phone Number" name="phone" required>
-
-    <label for="pword"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="pword" required>
-
-	<b>User Type :</b>
-	<input type="radio" name="utype" value="l" required>Landlord
-	<input type="radio" name="utype" value="t" required>Tenant
-	<input type="radio" name="utype" value="l" required>Administrator<br><br>
-	
-	
-	<b>Gender :</b>
-	<input type="radio" name="gender" value="m" required>Male
-	<input type="radio" name="gender" value="f" required>Female<br><br>
-    <label>
+	<div class="form group">
+	<label>Username</label>
+                <input type="text" placeholder="Enter Username" name="u_name" class="form-control"  required>
+     
+            </div>    
+            <div class="form group">
+                <label>Password</label>
+                <input type="password" placeholder="Enter Password" name="psw" class="form-control"  required>
+                
+            </div>
+            <div class="form group">
+                <label>Confirm Password</label>
+                <input type="password"placeholder="Enter Password" name="confirm_password" class="form-control"  required>
+                
+            </div>
+			<div class="form group">
+				<label>Enail Address</label>
+				<input type="text" placeholder="Enter Email" name="email" required>
+			</div>
+			<div class="form group">
+				<label>First Name</label>
+				<input type="text" placeholder="Enter First Name" name="f_name" required>
+			</div>
+			<div class="form group">
+				<label>Last Name</label>
+				<input type="text" placeholder="Enter Last Name" name="l_name" required>
+			</div>
+			<div class="form group">
+				<label>User Type</label>
+				<input type="radio" name="u_type" value="landlord" required>Landlord
+				<input type="radio" name="u_type" value="tenant" required>Tenant
+				<input type="radio" name="u_type" value="administrator" required>Administrator<br><br>
+			</div>
+			<div class="form group">
+				<label>Gender</label>
+				<input type="radio" name="gender" value="male" required>Male
+				<input type="radio" name="gender" value="female" required>Female<br><br>
+			</div>
+            
       <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
     </label>
     

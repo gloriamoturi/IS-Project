@@ -1,0 +1,26 @@
+
+<html>
+<head>
+<link href="stylesheet.css" rel="stylesheet" type="text/css">
+<title>Maintenance Requests</title>
+</head>
+	<body class="loggedin">
+		<nav class="navtop">
+			<div>
+				<h1>E-RENTAL</h1>
+				<a href="requests.html">Maintenance Requests</a>
+				<a href="posts.html">Online Noticeboard</a>
+				<a href="chats.html">Chats</a>
+				<a href="profile.php">Profile</a>
+				<a href="logout.php">Logout</a>
+			</div>
+		</nav>
+		<div class="content">
+<h1>Maintenance Requests</h1>
+<a href="frequest.html">Submit Maintenance Request</a>
+<button type="button" onclick="document.getElementById('own').style.display='block'" style="width:auto;">My Own</button>
+<button type="button" onclick="document.getElementById('all').style.display='block'" style="width:auto;">All</button>
+</div>
+</body>
+</html>
+

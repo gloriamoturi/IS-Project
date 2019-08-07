@@ -45,12 +45,8 @@ $gender=$_POST['gender'];
     } else {    
         //updating the table
         $result = mysqli_query($conn, "UPDATE user SET u_name='$u_name',email='$email',f_name='$f_name',l_name='$l_name',property='$property',u_type='$u_type',gender='$gender' WHERE user_id=$user_id");
-        if ($conn->query($result) === TRUE) {
-        //redirectig to the display page. In our case, it is index.php
-		echo"Record updated!";
-		}else{
-			echo"Error!";
-		}
+        echo"Record updated";
+		header("Location:profile.php");
         
     }
 }
@@ -79,7 +75,7 @@ while($res = mysqli_fetch_array($result))
 </head>
  
 <body>
-    <a href="welcome.php">Home</a>
+    
     <br/><br/>
     
     <form name="form1" method="post" action="edit.php">
@@ -115,6 +111,7 @@ while($res = mysqli_fetch_array($result))
             <tr>
                 <td><input type="hidden" name="user_id" value=<?php echo $_GET['user_id'];?>></td>
                 <td><input type="submit" name="update" value="Update"></td>
+                <td><a class="login100-form-btn" href="profile.php">Cancel</a></td>
             </tr>
         </table>
     </form>

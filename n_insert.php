@@ -1,6 +1,31 @@
+<?php
+include("config.php");
+ include('session.php');
+
+
+if (isset($_POST['upload'])) {
+	$n_name=$_POST['n_name'];
+    $n_description=$_POST['n_description'];
+  $n_status='displayed';
+  if (!empty($n_name)||!empty($n_description)||!empty($f_name)){
+  $sql = "INSERT INTO notice_details (n_name,n_description,user_id,n_date,n_status) values ('$n_name','$n_description','$login_session_id',CURRENT_TIMESTAMP,'$n_status')";
+  //worked
+  
+  mysqli_query($conn, $sql);
+  header("location:notice.php");
+      
+
+}	
+}
+
+
+
+$conn->close();
+?>
+
 <html>
 <head>
-<title>Maintenance Request Form</title>
+<title>Notice</title>
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box}
@@ -74,31 +99,36 @@ button:hover {
 </style>
 </head>
 <body>
-<form action="r_insert.php" method="POST" enctype="multipart/form-data">
+<form method="POST" action="">
+
   
-    <h1>Maintenance Request Form</h1>
-   
-   <label for="r_name"><b>Maintenance Request Name</b></label>
-    <input type="text" placeholder="Enter Maintenance Request Name" name="r_name" required>
-	
-    <label for="r_location"><b>Location</b></label>
-	<input type="text" placeholder="Enter location" name="r_location" required>
-	<label for="r_description"><b>Description</b></label>
-    <textarea id="text" 
+    <h1>Notice Details</h1>
+   <label for="n_name"><b>Notice Name</b></label>
+    <input type="text" placeholder="Enter Notice Name" name="n_name" required>
+
+	<label for="n_description"><b>Description</b></label>
+    <div>
+      <textarea 
+      	id="text" 
       	cols="40" 
-      	rows="4" name="r_description" required ></textarea>
-	</div>
-	<input type="hidden" name="size" value="1000000">
-  	<div>
-  	  <input type="file" name="r_image">
+      	rows="4" 
+      	name="n_description" 
+      	placeholder="Description"></textarea>
   	</div>
 	
+  	
+
+   <!-- <label for="podate"><b>Submission Date</b></label>
+    <input type="date" placeholder="Enter Submission Date" name="podate" required>-->
 	
-	
-      <div>
+      
+	  
+	  <div>
   		<button type="submit" name="upload">POST</button>
   	</div>
-	  <a class="login100-form-btn" href="requests.php">Cancel</a>
+	  <a class="login100-form-btn" href="notice.php">Cancel</a>
+	  
+    
   
 </form>
 

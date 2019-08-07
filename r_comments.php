@@ -2,12 +2,12 @@
   // Create database connection
   include("config.php");
    include('session.php');
-   $post_id = $_GET['post_id'];
+   $request_id = $_GET['request_id'];
   if (isset($_POST['upload'])) {
-  $p_c_status='displayed';
+  $r_c_status='displayed';
   	// Get text
-  	$p_c_desc = $_POST['p_c_desc'];
-	$sql = "INSERT INTO p_comments (post_id,user_id,p_c_desc,p_c_time,p_c_status ) VALUES ('$post_id','$login_session_id','$p_c_desc',CURRENT_TIMESTAMP,'$p_c_status')";
+  	$r_c_desc = $_POST['r_c_desc'];
+	$sql = "INSERT INTO r_comments (request_id,user_id,r_c_desc,r_c_time,r_c_status ) VALUES ('$request_id','$login_session_id','$r_c_desc',CURRENT_TIMESTAMP,'$r_c_status')";
 	if ($conn->query($sql) === TRUE) {
     
 	}else{
@@ -70,23 +70,23 @@
 		<div class="content">
 		<h2>Comments</h2>
 
-<a href="posts.php">All Posts</a>
+<a href="requests.php">All Requests</a>
 <div id="content">
   <?php
   include("config.php");
   
-  $sql = "SELECT p_comments.p_comment_id,p_comments.post_id,p_comments.user_id,p_comments.p_c_desc, p_comments.p_c_time,p_comments.p_c_status, user.u_name,user.user_id FROM p_comments INNER JOIN user ON p_comments.user_id=user.user_id WHERE post_id='$post_id'";
+  $sql = "SELECT r_comments.r_comment_id,r_comments.request_id,r_comments.user_id,r_comments.r_c_desc, r_comments.r_c_time,r_comments.r_c_status, user.u_name,user.user_id FROM r_comments INNER JOIN user ON r_comments.user_id=user.user_id WHERE request_id='$request_id'";
 $result = $conn->query($sql);
   if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-		if($row['p_c_status']=="displayed"){
+		if($row['r_c_status']=="displayed"){
 		echo "<div id='img_div'>";
 		echo "<p>".$row['u_name']."</p>";
-        echo "<div id='img_div'>"."<p>".$row['p_c_desc']."</p>"."</div>";
-		echo "<p>".$row['p_c_time']."</p>";
+        echo "<div id='img_div'>"."<p>".$row['r_c_desc']."</p>"."</div>";
+		echo "<p>".$row['r_c_time']."</p>";
 		if($row['user_id']=="$login_session_id"){
-			echo "<br> <a href=\"dpc.php?p_comment_id=$row[p_comment_id]&post_id=$post_id\" onClick=\"return confirm('Are you sure you want to remove the comment?')\">Remove comment</a>";
+			echo "<br> <a href=\"drc.php?r_comment_id=$row[r_comment_id]&request_id=$request_id\" onClick=\"return confirm('Are you sure you want to remove the comment?')\">Remove comment</a>";
 		}
 		echo "</div>";
     }
@@ -100,7 +100,7 @@ $result = $conn->query($sql);
       	id="text" 
       	cols="40" 
       	rows="4" 
-      	name="p_c_desc" 
+      	name="r_c_desc" 
       	placeholder="Add a comment....."></textarea>
   	</div>
   	<div>

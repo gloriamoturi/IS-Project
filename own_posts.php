@@ -1,3 +1,8 @@
+<?php
+   
+   include('linkbar.php');
+  
+?>
 <html>
 <head>
 <style type="text/css">
@@ -43,24 +48,14 @@
 <title>Online Noticeboard</title>
 </head>
 <body class="loggedin">
-		<nav class="navtop">
-			<div>
-				<h1>E-RENTAL</h1>
-				<a href="welcome.php">Home</a>
-				<a href="requests.html">Maintenance Requests</a>
-				<a href="posts.php">Online Noticeboard</a>
-				<a href="chats.php">Chats</a>
-				<a href="profile.php">Profile</a>
-				<a href="logout.php">Logout</a>
-			</div>
-		</nav>
+		
 		<div class="content">
 		<h2>Online Noticeboard</h2>
-<a href="fpost.html">Add Post</a>
-<a href="posts.php">All Posts</a>
+		
+		<a href='posts.php' class='btn btn-primary btn-sm  ' >All Posts</a><br>
+
 <?php
-include("config.php");
-include('session.php');
+
 $sql = "SELECT post_details.post_id, post_details.user_id,post_details.poname, post_details.pdescription,post_details.p_image,post_details.podate,post_details.p_status, user.u_name,user.property FROM post_details INNER JOIN user ON post_details.user_id=user.user_id WHERE property='$session_property' ORDER BY post_details.post_id DESC";
 $result = $conn->query($sql);
 
@@ -69,7 +64,7 @@ if ($result->num_rows > 0) {
 		if($row['user_id']=="$login_session_id"){
         echo "<div id='img_div'>"."<img src='images/".$row['p_image']."' >"."post id: " . $row["post_id"]. "<br> Name: " . $row["poname"]."<br>Description: " . $row["pdescription"]. " <br> Posted by: " . $row["u_name"]."<br> Date: " .$row["podate"] ."<br> Status: " .$row["p_status"] ."<br>"."<a href=\"p_comments.php?post_id=$row[post_id]\">Comments</a>";
 		if($row['p_status']=="displayed"){
-			echo "<br> <a href=\"delete.php?post_id=$row[post_id]\" onClick=\"return confirm('Are you sure you want to remove the post?')\">Remove post</a>";
+			echo "<br> <a href=\"dp.php?post_id=$row[post_id]\" onClick=\"return confirm('Are you sure you want to remove the post?')\">Remove post</a>";
 		}
 			echo "</div>";
 	}

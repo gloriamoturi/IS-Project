@@ -1,71 +1,74 @@
 <?php
-   include("config.php"); 
-   include('session.php');
-  
+   
+   include('linkbar.php');
+   if (isset($_POST['upload'])) {
+	$poname=$_POST['poname'];
+    $pdescription=$_POST['pdescription'];
+	$p_status='displayed';
+    
+
+  	// Get image name
+  	$p_image = $_FILES['p_image']['name'];
+
+  	// image file directory
+  	$target = "images/".basename($p_image);
+}
+if (!empty($poname)||!empty($pdescription)||!empty($p_image)){
+$sql = "INSERT INTO post_details (poname,pdescription,p_image,user_id,podate,p_status) values ('$poname','$pdescription','$p_image','$login_session_id',CURRENT_TIMESTAMP,'$p_status')";
+//worked
+
+mysqli_query($conn, $sql);
+
+  	if (move_uploaded_file($_FILES['p_image']['tmp_name'], $target)) {
+  		$msg = "Image uploaded successfully";
+		header("location:posts.php");
+  	}else{
+  		$msg = "Failed to upload image";
+  	}
+}
+$conn->close();
 ?>
 
 <html>
 <head>
-<link href="stylesheet.css" rel="stylesheet" type="text/css">
-<title>Online Noticeboard</title>
-<style type="text/css">
-   #content{
-   	width: 50%;
-   	margin: 20px auto;
-   	border: 1px solid #cbcbcb;
-   }
-   form{
-   	width: 50%;
-   	margin: 20px auto;
-   }
-   form div{
-   	margin-top: 5px;
-   }
-   #img_div{
-	 background="note.jpg";
-   	width: 80%;
-   	padding: 5px;
-   	margin: 15px auto;
-   	border: 1px solid #cbcbcb;
-   }
-   #img_div:after{
-   	content: "";
-   	display: block;
-   	clear: both;
-   }
-   img{
-   	float: left;
-   	margin: 5px;
-   	width: 300px;
-   	height: 140px;
-   }
-   body {
-  
-  background-size: cover;
-  background-repeat:no-repeat;
+	<style>
+		#searchbar{ 
+    {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
  
-}
+   } 
+ 
+   
+ 
+.posts{ 
+   display: list-item;     
+  }  
+		</style>
+<link href="stylesheet.css" rel="stylesheet" type="text/css">
+<link href="posts.css" rel="stylesheet" type="text/css">
+<title>Online Noticeboard</title>
 
-</style>
 
 </head>
-<body background="board.jpg" class="loggedin">
-		<nav class="navtop">
-			<div>
-				<h1>E-RENTAL</h1>
-				<a href="welcome.php">Home</a>
-				<a href="requests.html">Maintenance Requests</a>
-				<a href="posts.php">Online Noticeboard</a>
-				<a href="chats.php">Chats</a>
-				<a href="profile.php">Profile</a>
-				<a href="logout.php">Logout</a>
-			</div>
-		</nav>
+<body>
+		
 		<div class="content">
-		<h2>Online Noticeboard
+		<h2 style="color:white;">Online Noticeboard<br><input id="searchbar" onkeyup="search_posts()" type="text"
+		name="search" placeholder="Search ..">
+		</h2>
+		<br>
+		<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
+		Add Post
+  </button>
+		<a href='own_posts.php' class='btn btn-primary btn-sm  ' >My Posts</a><br>
+		<div class="mdb-lightbox no-margin">
+		<ol id='list'>
 
-<a href="fpost.html">Add Post</a>
-<a href="own_posts.php">My Posts</a></h2>
 
 <?php
 include("config.php");
@@ -77,11 +80,15 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
 		if($row['p_status']=="displayed"){
-        echo "<div id='img_div'>"."<img src='images/".$row['p_image']."' >"."post id: " . $row["post_id"]. "<br> Name: " . $row["poname"]."<br>Description: " . $row["pdescription"]. " <br> Posted by: " . $row["u_name"]."<br> Date: " .$row["podate"] ."<br>"."<a href=\"p_comments.php?post_id=$row[post_id]\">Comments</a>";
+        echo "<li class='posts'style='list-style-type:none'><div class='responsive'>
+		<div class='gallery'>"."<div class='desc'><a href='images/".$row['p_image']."'data-size='1600x1067'><img alt='picture'  src='images/".$row['p_image']."'> </a>
+		".
+		
+		"post id: " . $row["post_id"]. "<br> Name: " . $row["poname"]."<br>Description: " . $row["pdescription"]. " <br> Posted by: " . $row["u_name"]."<br> Date: " .$row["podate"] ."<br>"."<a href=\"p_comments.php?post_id=$row[post_id]\">Comments</a>";
 		if($session_u_type=='landlord'){
-			echo "<br> <a href=\"delete.php?post_id=$row[post_id]\" onClick=\"return confirm('Are you sure you want to remove the post?')\">Remove post</a>";
+			echo "<br> <a href=\"dp.php?post_id=$row[post_id]\" onClick=\"return confirm('Are you sure you want to remove the post?')\">Remove post</a>";
 		}
-			echo "</div>";
+			echo " </div></div></div></li>";
 	}
 	}
 } else {
@@ -89,8 +96,63 @@ if ($result->num_rows > 0) {
 }
 $conn->close();
 ?>
-
+</ol>
+<div class="clearfix"></div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="background-color: transparent !important;">
+  
+  <div class="modal-dialog modal-dialog-centered" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalCenterTitle">Post Details</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		 
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		<form method="POST" action="posts.php" enctype="multipart/form-data">
+			<div class="form-group">
+			  <label for="poname" class="col-form-label">Post Name:</label>
+			  <input type="text" class="form-control" id="poname" name="poname" >
+			</div>
+			<div class="form-group">
+			  <label for="p_description" class="col-form-label">Description:</label>
+			  <textarea class="form-control" id="pdescription" name ="pdescription" ></textarea>
+			</div>
+			<div class="form-group">
+			</div>
+	<input type="hidden" name="size" value="1000000">
+  	<div>
+  	  <input type="file" name="p_image">
+  	</div>	
+			</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <button type="submit" class="btn btn-primary" name="upload">Post</button>
+		</div>
+		</form>
+	  </div>
+	</div>
+  </div>
+  </div>
 </div>
+</div>
+<script>
+function search_posts() { 
+    let input = document.getElementById('searchbar').value 
+    input=input.toLowerCase(); 
+    let x = document.getElementsByClassName('posts'); 
+      
+    for (i = 0; i < x.length; i++) {  
+        if (!x[i].innerHTML.toLowerCase().includes(input)) { 
+            x[i].style.display="none"; 
+        } 
+        else { 
+            x[i].style.display="list-item";                  
+        } 
+    } 
+}
+</script> 
 </body>
 
 </html>

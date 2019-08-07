@@ -1,3 +1,7 @@
+body,html{
+			height: 100%;
+			margin: 0;
+			background-image: radial-gradient(circle, #c2c9cb, #8496a0, #4f6478, #243451, #080129);		}
 .navtop {
 	background-color: #2f3947;
 	height: 60px;
@@ -65,4 +69,39 @@ body.loggedin {
 .content > div p {
 	padding: 5px;
 	margin: 0 0 10px 0;
+}
+#content{
+	width: 50%;
+	margin: 20px auto;
+	border: 1px solid #cbcbcb;
+}
+form{
+	width: 50%;
+	margin: 20px auto;
+}
+form div{
+	margin-top: 5px;
+}
+#img_div{
+  background="note.jpg";
+	width: 80%;
+	padding: 5px;
+	margin: 15px auto;
+	border: 1px solid #cbcbcb;
+}
+#img_div:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+img{
+	float: left;
+	margin: 5px;
+	width: 300px;
+	height: 140px;
+}
+body {
+
+background-size: cover;
+background-repeat:no-repeat;
 }

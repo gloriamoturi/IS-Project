@@ -2,6 +2,7 @@
   // Create database connection
   include("config.php");
    include('session.php');
+   include('bs.html');
    $post_id = $_GET['post_id'];
   if (isset($_POST['upload'])) {
   $p_c_status='displayed';
@@ -68,9 +69,9 @@
 			</div>
 		</nav>
 		<div class="content">
-		<h2>Comments</h2>
+		<h2 style="color:white;">Comments</h2>
 
-<a href="posts.php">All Posts</a>
+<a href="posts.php" class='btn btn-primary btn-sm'>All Posts</a>
 <div id="content">
   <?php
   include("config.php");

@@ -48,27 +48,27 @@ $type_check_query = "SELECT * FROM user WHERE u_type='$u_type' AND property='$pr
   
   
     if ($users['u_name'] === $u_name) {
-      $u_msg="Username already exists";
+      $u_msg="Username already exists!";
     }
   
   
 	if ($userss['email'] === $email) {
-      $e_msg= "Email already exists";
+      $e_msg= "Email already exists!";
     }
   
  
 	if ($type['u_type'] === 'landlord') {
-      $l_msg= "Landlord already exists";
+      $l_msg= "Landlord already exists!";
     }
    
 if($psw != $c_psw){
-	$c_psw_msg="Password does not match";
+	$c_psw_msg="Password does not match!";
 }
 if (empty($u_msg)&&empty($e_msg)&&empty($l_msg)&&empty($c_psw_msg)){
 	
-if (!empty($u_name)||!empty($email)||!empty($f_name)||!empty($l_name)||!empty($psw)||!empty($c_psw)||!empty($property)||!empty($u_type)||!empty($gender)||!empty($status)){
+if (!empty($u_name)||!empty($email)||!empty($f_name)||!empty($l_name)||!empty($psw)||!empty($c_psw)||!empty($property)||!empty($u_type)||!empty($gender)||!empty($status)||!empty($u_image)){
 	$psw_hash= password_hash($psw, PASSWORD_DEFAULT);
-$sql = "INSERT INTO user (u_name,psw,f_name,l_name,email,property,h_no,u_type,gender,u_image,status) values ('$u_name','$psw_hash','$f_name','$l_name','$email','$property','$h_no','$u_type','$gender','$u_image','$status')";
+$sql = "INSERT INTO user (u_name,psw,f_name,l_name,email,property,h_no,u_type,gender,u_image,status,start_date) values ('$u_name','$psw_hash','$f_name','$l_name','$email','$property','$h_no','$u_type','$gender','$u_image','$status',CURRENT_TIMESTAMP)";
 if (move_uploaded_file($_FILES['u_image']['tmp_name'], $target)) {
 echo "yes";
 }else{
@@ -157,9 +157,7 @@ $conn->close();
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100">
 				<form action="" method="post"  class="login100-form validate-form" enctype="multipart/form-data">
-					<span class="login100-form-logo">
-						<img src="">
-					</span>
+					
 
 					<span class="login100-form-title p-b-34 p-t-27">
 						Sign up
@@ -167,7 +165,7 @@ $conn->close();
 					<div class="wrap-input100 validate-input" data-validate = "Enter username">
 						<input class="input100" type="text" name="u_name" placeholder="Username"value="<?php echo $u_name; ?>"required>
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
-						<?php if($u_msg!=""){echo $u_msg; }?>
+						<?php if($u_msg!=""){echo "<span style='color:maroon;'>".$u_msg."</span>"; }?>
 					</div>
 
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
@@ -177,11 +175,11 @@ $conn->close();
 					<div class="wrap-input100 validate-input" >
 						<input class="input100" minlength="5" type="password" name="c_psw" placeholder="Confirm password"value="<?php echo $c_psw; ?>"required>
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
-						<?php if($c_psw_msg!=""){echo $c_psw_msg; }?>
+						<?php if($c_psw_msg!=""){echo "<span style='color:maroon;'>".$c_psw_msg."</span>"; }?>
 					</div>
 					<div class="wrap-input100 validate-input" >
 						<input class="input100" type="email" name="email" placeholder="Email" value="<?php echo $email; ?>"required>
-						<?php if($e_msg!=""){echo $e_msg; }?>
+						<?php if($e_msg!=""){echo "<span style='color:maroon;'>". $e_msg."</span>"; }?>
 						<!--<span class="focus-input100" data-placeholder="&#xf207;"></span>-->
 					</div>
 					<div class="wrap-input100 validate-input" >
@@ -207,7 +205,7 @@ $conn->close();
 					<label style="color:white">User Type</label>
 						<input type="radio"  id="chkNo"  name="u_type" value="landlord" onclick="ShowHideDiv()" <?php if($u_type == 'landlord') echo 'checked' ?> required>Landlord
 						<input type="radio" id="chkYes" name="u_type" value="tenant" onclick="ShowHideDiv()" <?php if($u_type == 'tenant') echo 'checked' ?> required>Tenant
-						<?php if($l_msg!=""){echo '<br>'.$l_msg; }?>
+						<?php if($l_msg!=""){echo "<br><span style='color:maroon;'>".$l_msg."</span>"; }?>
 						<div id="h" style="display: none">
 							House Number:
 							<input type="text" id="h_no" name="h_no" placeholder="House number"value="<?php echo $h_no; ?>">
@@ -222,11 +220,12 @@ $conn->close();
 						<!--removed class="input100"-->
 					</div>
 					<div class="wrap-input100 validate-input" >
+					<label style="color:white">Profile Picture</label>
 						<div>
 							<input type="hidden" name="size" value="1000000">
 						</div>
   						<div>
-  	  						<input type="file" name="u_image">
+  	  						<input type="file" name="u_image" required>
   						</div>	
 					</div>
 					<div class="container-login100-form-btn">

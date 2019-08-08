@@ -1,6 +1,7 @@
 <?php
    
    include('linkbar.php');
+   error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
    if (isset($_POST['upload'])) {
 	$poname=$_POST['poname'];
     $pdescription=$_POST['pdescription'];
@@ -48,17 +49,63 @@ $conn->close();
 .posts{ 
    display: list-item;     
   }  
+  div.gallery {
+  border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 		</style>
 <link href="stylesheet.css" rel="stylesheet" type="text/css">
-<link href="posts.css" rel="stylesheet" type="text/css">
+
 <title>Online Noticeboard</title>
 
 
 </head>
 <body>
 		
-		<div class="content">
-		<h2 style="color:white;">Online Noticeboard<br><input id="searchbar" onkeyup="search_posts()" type="text"
+		<div class="content"  >
+		<h2 ><span style="color:white;">Online Noticeboard</span><br><input id="searchbar" onkeyup="search_posts()" type="text"
 		name="search" placeholder="Search ..">
 		</h2>
 		<br>
@@ -80,11 +127,16 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
 		if($row['p_status']=="displayed"){
-        echo "<li class='posts'style='list-style-type:none'><div class='responsive'>
-		<div class='gallery'>"."<div class='desc'><a href='images/".$row['p_image']."'data-size='1600x1067'><img alt='picture'  src='images/".$row['p_image']."'> </a>
+        echo "<li class='posts'style='list-style-type:none'><div class='responsive' style=' padding: 0 6px;
+		float: left;
+		width: 33.3%;'>
+		<div class='gallery' style=' border: 1px solid #ccc;'>"."<a  href='images/".$row['p_image']."'data-size='1600x1067'><img style='margin: 5px;
+		width: 280px;
+		height: 200px;' alt='picture'  src='images/".$row['p_image']."'> </a><div class='desc' style='padding: 15px; font-size: 20px;
+		text-align: center;'>
 		".
 		
-		"post id: " . $row["post_id"]. "<br> Name: " . $row["poname"]."<br>Description: " . $row["pdescription"]. " <br> Posted by: " . $row["u_name"]."<br> Date: " .$row["podate"] ."<br>"."<a href=\"p_comments.php?post_id=$row[post_id]\">Comments</a>";
+		 "<span style='text-align: center;text-decoration: underline;font-weight: bold;'> " . $row["poname"]."</span><br> " . $row["pdescription"]. " <br><span style='color:grey;'font-size: 10px;> Posted by: " . $row["u_name"]."<br> Date: " .$row["podate"] ."</span><br>"."<a href=\"p_comments.php?post_id=$row[post_id]\">Comments</a>";
 		if($session_u_type=='landlord'){
 			echo "<br> <a href=\"dp.php?post_id=$row[post_id]\" onClick=\"return confirm('Are you sure you want to remove the post?')\">Remove post</a>";
 		}

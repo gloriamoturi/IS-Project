@@ -14,9 +14,14 @@
 	<body class="loggedin">
 		
 		<div class="content">
-			<h2 style="color:white;">Home Page</h2>
+		
+			<h2 style="color:white;">Home Page
+			<br><a href='notice.php' class='btn btn-primary btn-sm btn float-left' >Notices </a>
+	<a href='t_reports.php' class='btn btn-primary btn-sm btn float-left' >Tenant Reports</a>
+	<a href='reports.php' class='btn btn-primary btn-sm btn float-left' >Maintenance Reports</a><br>
+		</h2>
 			
-			<div class="alert alert-light" role="alert">
+			<div class="alert alert-dark" role="alert">
 			Welcome back, <?php echo $login_session; ?>.
 </div>
 			
@@ -33,14 +38,12 @@ $stmt->close();
 if($u_type=='landlord')
 {
 	echo "<b><span style='color:white;'>TENANTS</span></b>";
-	echo "<a href='notice.php' class='btn btn-primary btn-sm btn float-right' >Notices</a><br><br>";
 	
-	$sql="SELECT * FROM user WHERE u_type='tenant' AND property='$session_property' ";
 	
+	$sql="SELECT * FROM user WHERE u_type='tenant' AND property='$session_property' ORDER BY status ";
 	$result = $conn->query($sql);
-	
 	if ($result->num_rows > 0) {
-    // output data of each row
+	// output data of each row
 	echo '<table class="table table-bordered table-dark ">';
 	echo "<thead class='thead-dark'><tr><th>"."User ID"."</th><th>"."Username"."</th><th>"."First Name"."</th><th>"."Last Name"."</th><th>"."Email"."</th><th>"."Property"."</th><th>"."House Number"."</th><th>"."Gender"."</th><th>"."Status"."</th><th>"."Update"."</th></tr></thead>";
     while($row = mysqli_fetch_array($result)) {

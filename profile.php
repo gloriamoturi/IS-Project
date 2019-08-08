@@ -31,16 +31,16 @@ $stmt->close();
         
         <div class="content">
 
-<div class="card mb-4" style="max-width: 540px;margin:0 auto;float:none; ">
+<div class="card mb-4" style="max-width: 700px;margin:0 auto;float:none;align:centre; ">
   <div class="row no-gutters">
     <div class="col-md-4">
       
-      <?php echo "<img src='images/".$u_image."'class='card-img' style='width:100%;' alt='...' >" ?>
+      <?php echo "<img src='images/".$u_image."'class='card-img' style='width:100%;height:60%;' alt='...' >" ?>
     </div>
     <div class="col-md-8">
-      <div class="card-body" style="allign:centre;">
+      <div class="card-body" style="align:centre;">
         <h3 style="color:black;margin-left:30px;" class="card-title">Account details</h3>
-<a href='edit.php?user_id=<?php echo $_SESSION["user_id"] ?>'>Edit</a>
+
 <p class="card-text">       
 <div>
                 
@@ -82,6 +82,7 @@ $stmt->close();
                 </table>
             </div>
                 </p>
+                <a href='edit.php?user_id=<?php echo $_SESSION["user_id"] ?>'class='btn btn-primary btn-sm btn float-right'>Edit</a>
                 </div>
     </div>
   </div>

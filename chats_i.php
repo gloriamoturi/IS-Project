@@ -1,7 +1,10 @@
 <?php
   // Create database connection
-  include("config.php");
-   include('session.php');
+  
+   
+   include('linkbar.php');
+  
+
    
    $user_id = $_GET['user_id'];
    $u_name = $_GET['u_name'];

@@ -56,7 +56,8 @@
     require_once('session.php');
     include("config.php");
     include("bs.html");
-    error_reporting( E_ALL & ~E_NOTICE );
+    error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
+    
     if($session_u_type=='landlord'){
         include('linkbar.php');
      }
@@ -81,7 +82,7 @@
     <?php
      
     
-    echo  "<h2 style='color:white;'>NOTICES</h2>";
+    echo  "<h2 style='color:black;'>NOTICES</h2>";
 if($session_u_type=='landlord'){
    
     echo '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
@@ -97,7 +98,7 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {
 		
         if($row['n_status']=="displayed"){
-            echo "<div class='success'><br><strong>  " . $row["n_name"]."</strong><br> " . $row["n_description"]. "<br> <span style='color:red; float:right;'> " .$row["n_date"] ."</span><br>";
+            echo "<div class='success'><br><strong>  " . $row["n_name"]."</strong><br> " . $row["n_description"]. "<br> <span style='color:grey; float:right;'> " .$row["n_date"] ."</span><br>";
                 echo "</div>";
         }
 	}

@@ -14,10 +14,12 @@ $sql="SELECT * FROM user WHERE user_id=$user_id ";
 //deleting the row from table
 if($row["status"]=="active"){
 $sql = mysqli_query($conn, "UPDATE user SET status='deactivated' WHERE user_id=$user_id ");
+$sql = mysqli_query($conn, "UPDATE user SET end_date=CURRENT_TIMESTAMP WHERE user_id=$user_id");
 
 	header("Location:welcome.php");
 }else{
 	$sql = mysqli_query($conn, "UPDATE user SET status='active' WHERE user_id=$user_id ");
+	$sql = mysqli_query($conn, "UPDATE user SET start_date=CURRENT_TIMESTAMP WHERE user_id=$user_id");
 
 	header("Location:welcome.php");	
 }

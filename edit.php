@@ -1,7 +1,8 @@
 <?php
 //not working
 // including the database connection file
-include_once("config.php");
+include("config.php");
+include("bs.html");
  
 if(isset($_POST['update']))
 {  
@@ -70,15 +71,17 @@ while($res = mysqli_fetch_array($result))
 }
 ?>
 <html>
-<head>    
+<head>
+<link href="stylesheet.css" rel="stylesheet" type="text/css">
+  
     <title>Edit Data</title>
 </head>
  
-<body>
+<body >
     
     <br/><br/>
     
-    <form name="form1" method="post" action="edit.php">
+    <form style="background:white;"name="form1" method="post" action="edit.php">
         <table border="0">
             <tr> 
                 <td>Username</td>
@@ -111,7 +114,7 @@ while($res = mysqli_fetch_array($result))
             <tr>
                 <td><input type="hidden" name="user_id" value=<?php echo $_GET['user_id'];?>></td>
                 <td><input type="submit" name="update" value="Update"></td>
-                <td><a class="login100-form-btn" href="profile.php">Cancel</a></td>
+                <td><a  class='btn btn-secondary btn-sm btn float-right' href="profile.php">Cancel</a></td>
             </tr>
         </table>
     </form>

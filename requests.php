@@ -1,6 +1,8 @@
 <?php
    
    include('linkbar.php');
+   error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE);
+
    if (isset($_POST['upload'])) {
 	$r_name=$_POST['r_name'];
 	$r_location=$_POST['r_location'];
@@ -15,7 +17,7 @@
   	// image file directory
   	$target = "images/".basename($r_image);
 }
-if (!empty($r_name)||!empty($r_description)||!empty($r_image)||!empty($r_location)){
+if (!empty($r_name)||!empty($r_description)||!empty($r_image)||!empty($r_location)||!empty($r_image)){
 $sql = "INSERT INTO request_details (r_name,r_location,r_description,r_image,user_id,r_date,r_status,stage) values ('$r_name','$r_location','$r_description','$r_image','$login_session_id',CURRENT_TIMESTAMP,'$r_status','$stage')";
 //worked
 
@@ -107,9 +109,9 @@ $conn->close();
 </head>
 <body class="loggedin">
 		
-		<div class="content"">
+		<div class="content">
 		<h2 style="color:white;">Maintenance Requests<br>
-		<input id="searchbar" onkeyup="search_posts()" type="text"
+		<input style="color:black;" id="searchbar" onkeyup="search_posts()" type="text"
 		name="search" placeholder="Search ..">		</h2>
 		<br>
 		<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
@@ -193,15 +195,15 @@ $conn->close();
 		<form method="POST" action="requests.php" enctype="multipart/form-data">
 			<div class="form-group">
 			  <label for="r_name" class="col-form-label">Request Name:</label>
-			  <input type="text" class="form-control" id="r_name" name="r_name" >
+			  <input type="text" class="form-control" id="r_name" name="r_name" required>
 			</div>
 			<div class="form-group">
 			  <label for="r_location" class="col-form-label">Location:</label>
-			  <textarea class="form-control" id="r_location" name ="r_location" ></textarea>
+			  <textarea class="form-control" id="r_location" name ="r_location" required></textarea>
 			</div>
 			<div class="form-group">
 			  <label for="r_description" class="col-form-label">Description:</label>
-			  <textarea class="form-control" id="r_description" name ="r_description" ></textarea>
+			  <textarea class="form-control" id="r_description" name ="r_description" required></textarea>
 			</div>
 			<div class="form-group">
 			</div>

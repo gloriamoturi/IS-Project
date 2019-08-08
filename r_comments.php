@@ -2,6 +2,7 @@
   // Create database connection
   include("config.php");
    include('session.php');
+   include('bs.html');
    $request_id = $_GET['request_id'];
   if (isset($_POST['upload'])) {
   $r_c_status='displayed';
@@ -55,7 +56,7 @@
 <link href="stylesheet.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<body class="loggedin">
+<body class="loggedin" overflow-y: scroll;>
 		<nav class="navtop">
 			<div>
 				<h1>E-RENTAL</h1>
@@ -68,9 +69,9 @@
 			</div>
 		</nav>
 		<div class="content">
-		<h2>Comments</h2>
+		<h2 style="color:white;">Comments</h2>
 
-<a href="requests.php">All Requests</a>
+<a href="requests.php" class='btn btn-primary btn-sm' >All Requests</a>
 <div id="content">
   <?php
   include("config.php");

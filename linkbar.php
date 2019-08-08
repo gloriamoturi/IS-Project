@@ -185,12 +185,12 @@ background-color: #333;
 		<div id="topheader">
         <ul class="sidebar-nav" id="sidebar">
 		  
-		  <li class="nav-link-1 active"><a href="welcome.php">Home<span class="sr-only">(current)</span></a></li>
-		  <li class="nav-link-1"><a href="requests.php">Requests</a></li>
-		  <li class="nav-link-1"><a href="posts.php">Online Noticeboard</a></li>
-		  <li class="nav-link-1"><a href="chats.php">Chats</a></li>
-		  <li class="nav-link-1"><a href="profile.php">Profile</a></li>
-		  <li class="nav-link-1"><a href="logout.php" style="color :rgb(192, 36, 36) ">Logout</a></li>
+		  <li class="welcome nav-link-1 active"><a href="welcome.php">Home<span class="sr-only">(current)</span></a></li>
+		  <li class="requests nav-link-1"><a href="requests.php">Requests</a></li>
+		  <li class="posts nav-link-1"><a href="posts.php">Online Noticeboard</a></li>
+		  <li class="chats nav-link-1"><a href="chats.php">Chats</a></li>
+		  <li class="profile nav-link-1"><a href="profile.php">Profile</a></li>
+		  <li class="logout nav-link-1"><a href="logout.php" style="color :rgb(192, 36, 36) ">Logout</a></li>
           
 		</ul>
 		</div>
@@ -200,10 +200,28 @@ $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("active");
 });	
+
 $("#sidebar .nav-link-1").on("click", function(){
    $("#sidebar").find(".active").removeClass("active");
    $(this).addClass("active");
 });
+function GetFilename(url)
+{
+   if (url)
+   {
+      var m = url.toString().match(/.*\/(.+?)\./);
+      if (m && m.length > 1)
+      {
+         return m[1];
+      }
+   }
+   return "";
+}
+
+
+  
+  
+
 </script>	
 </body>
 </html>
